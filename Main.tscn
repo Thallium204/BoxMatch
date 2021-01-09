@@ -1,3 +1,17 @@
 [gd_scene format=2]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node"]
+
+[node name="Game" type="Node2D" parent="."]
+
+[node name="TileMap" type="TileMap" parent="Game"]
+format = 1
+
+[node name="UI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
