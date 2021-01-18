@@ -5,8 +5,6 @@ enum ActionType{ATTACK, MOVE}
 var ActionTypeColors = [Color.red, Color.blue]
 enum DirectionType{ROOK, BISHOP}
 
-
-
 var direction_type_vectors = {
 	DirectionType.ROOK:		[Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT],
 	DirectionType.BISHOP:	[Vector2(1, -1), Vector2(1, 1), Vector2(-1, 1), Vector2(-1, -1)],
@@ -26,9 +24,12 @@ func test_action():
 
 func prepare_action(action_type:int, direction_type:int, number:int):
 	
+	# Add Selector Node
 	selector = Node2D.new()
+	selector.name = "selector"
 	add_child(selector)
 	
+	# Add Selectable children
 	for vector_direction in direction_type_vectors[direction_type]:
 		var vector_relative_position = vector_direction * 128 * number
 		var is_targetable = (move_and_collide(vector_relative_position, true, true, true) == null)
@@ -39,13 +40,17 @@ func prepare_action(action_type:int, direction_type:int, number:int):
 			Selectable.position = vector_relative_position
 			selector.add_child(Selectable)
 	
+	# Retry random action if no valid options
 	if selector.get_children().empty():
 		selector.queue_free()
 		test_action()
 
 func execute_action(action_type:int, vector_relative_position:Vector2):
+	
+	# Delete selectables
 	selector.queue_free()
 	
+	# Perform relevant action
 	match action_type:
 		ActionType.ATTACK:
 			pass
