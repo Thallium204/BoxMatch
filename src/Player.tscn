@@ -4,7 +4,12 @@
 [ext_resource path="res://src/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/resources/shape_player.tres" type="Shape2D" id=3]
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"object",
+"player",
+]]
+z_as_relative = false
+collision_layer = 2
 script = ExtResource( 2 )
 
 [node name="shape" type="CollisionShape2D" parent="."]
